@@ -20,9 +20,12 @@ public class CoreService {
 	public void print(Ball[] balls) {
 		System.out.println("Number  Frequency");
 		for(Ball b : balls) {
-			if(b.frequency==0) continue;
+			if(!IsFrequencyGreaterThanZero(b.frequency)) continue;
 			System.out.println(b.number+": "+b.frequency);
 		}
 	}
 	
+	public boolean IsFrequencyGreaterThanZero(int freq) {
+		return freq>0;
+	}
 }
