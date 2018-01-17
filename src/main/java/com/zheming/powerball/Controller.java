@@ -26,7 +26,7 @@ public class Controller {
 		coreService.print(inputService.pbs);
 	}
 	
-	public static void main( String[] args )
+	/*public static void main( String[] args )
     {
         Controller controller=new Controller();
         String url;
@@ -36,5 +36,5 @@ public class Controller {
         	url=args[0];
         }
         controller.run(url);
-    }
+    }*/
 }
