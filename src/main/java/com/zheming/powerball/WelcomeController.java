@@ -10,4 +10,9 @@ public class WelcomeController {
 	public String hello() {
 		return "Hello, this is Powerball page for Jieling and Zheming";
 	}
+	
+	@RequestMapping("/app")
+	public String test() {
+		return "test for 2nd page";
+	}
 }
