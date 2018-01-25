@@ -46,35 +46,15 @@ public class InputService {
 		}
 	}
 	
-	//Read file and calculate the frequency of each number 
+	//Read file 
 	public void FileReadService(String fileName) {
 		String line=null;
+		FileReader fileReader;
+		BufferedReader bufferedReader;
 		try {
-			FileReader fileReader=new FileReader(fileName);
-			BufferedReader bufferedReader=new BufferedReader(fileReader);
-			try {
-				//This line only has the title
-				line=bufferedReader.readLine();
-				while((line=bufferedReader.readLine())!=null) {
-					
-					String[] strs=line.split("\\s+");
-					//only data since 10/08/2015 is valid
-					if(YearAfter2015(strs[0])==false) continue;
-					
-					//Calculate the white ball frequencies
-					for(int i=1;i<=5;i++) {
-						//convert white ball value from string value to int
-						int idx=Integer.parseInt(strs[i]);						
-						wbs[idx].frequency++;
-					}
-					//convert powerball number from string to int
-					int pb_idx=Integer.parseInt(strs[6]);			
-					pbs[pb_idx].frequency++;
-				}
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+			fileReader=new FileReader(fileName);
+			bufferedReader=new BufferedReader(fileReader);
+			BufferReader(bufferedReader);
 			try {
 				bufferedReader.close();
 			} catch (IOException e) {
@@ -84,6 +64,7 @@ public class InputService {
 		}catch(FileNotFoundException ex) {
 			System.out.println("Unable to open file '"+fileName+"'");
 		}
+		
 	}
 	
 	public boolean YearAfter2015(String date) {
@@ -97,5 +78,43 @@ public class InputService {
 			e.printStackTrace();
 		}
 		return true;
+	}
+	
+	//calculate white ball frequency
+	public void WhiteBallFrequency(String[] strs) {
+		for(int i=1;i<=5;i++) {
+			int idx=Integer.parseInt(strs[i]);
+			wbs[idx].frequency++;
+		}
+	}
+	
+	//calculate power ball frequency
+	public void PowerBallFrequency(String str) {
+		int idx=Integer.parseInt(str);
+		pbs[idx].frequency++;
+	}
+	
+	//read buffer and analysis the data
+	public void BufferReader(BufferedReader bufferedReader) {
+		String line=null;
+		try {
+			//This line only has the title
+			line=bufferedReader.readLine();
+			while((line=bufferedReader.readLine())!=null) {
+				
+				String[] strs=line.split("\\s+");
+				//only data since 10/08/2015 is valid
+				if(YearAfter2015(strs[0])==false) continue;
+				
+				//Calculate the white ball frequencies
+				WhiteBallFrequency(strs);
+				
+				//convert powerball number from string to int
+				PowerBallFrequency(strs[6]);
+			}
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 }
