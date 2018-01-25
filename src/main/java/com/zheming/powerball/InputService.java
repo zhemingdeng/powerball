@@ -62,14 +62,10 @@ public class InputService {
 					if(YearAfter2015(strs[0])==false) continue;
 					
 					//Calculate the white ball frequencies
-					for(int i=1;i<=5;i++) {
-						//convert white ball value from string value to int
-						int idx=Integer.parseInt(strs[i]);						
-						wbs[idx].frequency++;
-					}
+					WhiteBallFrequency(strs);
+					
 					//convert powerball number from string to int
-					int pb_idx=Integer.parseInt(strs[6]);			
-					pbs[pb_idx].frequency++;
+					PowerBallFrequency(strs[6]);
 				}
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
@@ -97,5 +93,17 @@ public class InputService {
 			e.printStackTrace();
 		}
 		return true;
+	}
+	
+	public void WhiteBallFrequency(String[] strs) {
+		for(int i=1;i<=5;i++) {
+			int idx=Integer.parseInt(strs[i]);
+			wbs[idx].frequency++;
+		}
+	}
+	
+	public void PowerBallFrequency(String str) {
+		int idx=Integer.parseInt(str);
+		pbs[idx].frequency++;
 	}
 }
